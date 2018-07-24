@@ -40,7 +40,7 @@ let () = assert (myStrings(myInts) == ["1", "2", "3", "4", "5"]);
   Exercise: implement the value [myNewInts], which is obtained by adding 1 to
   each element of [myInts]
  */
-let myNewInts = ints => failwith("For you to implement");
+let myNewInts = ints => List.map((i) => i + 1, myInts);
 
 /*
   If the function you want to perform on each element of your list is one that
@@ -66,7 +66,7 @@ let () = List.iter(i => Js.log("here's an int: " ++ i), myStrings(myInts));
   Here's an example of using [fold_left] to compute a sum:
  */
 let sumOfMyInts = ints : int =>
-  List.fold_left((total, myInt) => total + myInt, 0, ints);
+  List.fold_left((total, myInt) => total + myInt, 0, myInts);
 
 let () = assert (sumOfMyInts(myInts) == 15);
 
@@ -77,7 +77,16 @@ let () = assert (sumOfMyInts(myInts) == 15);
   Hint: Use the infix operator `mod`.
     (4 mod 2 == 0)
  */
-let numEvenInts = ints => failwith("For you to implement");
+let numEvenInts = ints => List.fold_left(
+  (total, i) =>
+    switch(i mod 2) {
+      | 0 => total + 1
+      | _ => total
+    }
+  ,
+  0,
+  ints,
+);
 
 /*
   Here's one more example of a useful list function: [List.find]:
