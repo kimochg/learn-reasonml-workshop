@@ -20,7 +20,29 @@ let () = x := x^ + 1;
 
   Hint: [max_int] or [min_int].
  */
-let minAndMax = lst => failwith("For you to implement");
+let minAndMax = lst => {
+  let min = ref(max_int);
+  let max = ref(min_int);
+
+  List.iter(
+    (item) => {
+      switch(item < min^) {
+        | true => min := item
+        | _ => ()
+      };
+      switch(item < max^) {
+        | false => max := item
+        | _ => ()
+      };
+
+      ();
+    },
+    lst
+  );
+
+  (min^, max^);
+
+};
 
 Test.runAll([
   (minAndMax([5, 9, 2, 4, 3]) == (2, 9), "min and max"),
